@@ -15,6 +15,10 @@ import Grid from '@mui/material/Grid'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { PROPERTY_TYPES } from '@babel/types'
+import avatar from '../../assets/img/avator.jpg'
+
+
 
 function Copyright(props: any) {
   return (
@@ -37,14 +41,8 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
+  email: yup.string().email('邮箱格式错误').required('邮箱为空！'),
+  password: yup.string().min(6, '密码最少六位').required('密码为空！'),
 })
 
 export default function SignInSide() {
@@ -56,12 +54,13 @@ export default function SignInSide() {
 
   const formik = useFormik({
     initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
+      email: '',
+      password: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      console.log(JSON.stringify(values, null, 2))
+      window.location.href = '/'
     },
   })
   // useEffect(load)
@@ -85,31 +84,31 @@ export default function SignInSide() {
     setRemember(e.target.checked)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    let account = JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
-    // console.log(account)
-    if (remember) {
-      Cookies.set('account', account, {
-        expires: 7,
-        secure: true,
-      })
-    }
-    // if (emailRef.current) {
-    //   console.log( emailRef.current.value )
-    // }
-    // console.log(document.getElementById('email')?.ariaValueText)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      remember: remember,
-      // ref: emailRef.current?.value,
-    })
-  }
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault()
+  //   const data = new FormData(event.currentTarget)
+  //   let account = JSON.stringify({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   })
+  //   // console.log(account)
+  //   if (remember) {
+  //     Cookies.set('account', account, {
+  //       expires: 7,
+  //       secure: true,
+  //     })
+  //   }
+  //   // if (emailRef.current) {
+  //   //   console.log( emailRef.current.value )
+  //   // }
+  //   // console.log(document.getElementById('email')?.ariaValueText)
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //     remember: remember,
+  //     // ref: emailRef.current?.value,
+  //   })
+  // }
 
   return (
     <ThemeProvider theme={theme}>
@@ -131,21 +130,34 @@ export default function SignInSide() {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
+          sx={{ display: 'flex' }}
+        >
           <Box
             sx={{
-              my: 8,
+              my: 0,
               mx: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <Avatar
+              // sx={{ m: 1, bgcolor: 'secondary.main' }}
+              sx={{ width: 96, height: 96 }}
+              alt='Remy Sharp'
+              src={avatar}
+            />
             <Typography component='h1' variant='h5'>
-              Sign in
+              搞快点！
             </Typography>
             <Box
               component='form'
@@ -158,18 +170,19 @@ export default function SignInSide() {
                 fullWidth
                 id='email'
                 name='email'
-                label='Email'
+                label='邮箱'
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
+                autoFocus
               />
               <TextField
                 margin='normal'
                 fullWidth
                 id='password'
                 name='password'
-                label='Password'
+                label='密码'
                 type='password'
                 value={formik.values.password}
                 onChange={formik.handleChange}
@@ -195,7 +208,7 @@ export default function SignInSide() {
                 variant='contained'
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                登录
               </Button>
               <Grid container>
                 <Grid item xs>
