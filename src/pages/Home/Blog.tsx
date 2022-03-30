@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { render } from 'react-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
@@ -14,14 +13,11 @@ import Main from './Main'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
 import Markdown from './Markdown'
-// import Markdown from 'markdown-to-jsx'
+
 import post1 from '../../assets/md/blog-post.1.md'
 import post2 from '../../assets/md/blog-post.2.md'
 import post3 from '../../assets/md/blog-post.3.md'
 
-
-// post1()
-// render(<Markdown>{post}</Markdown>, document.body)
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },

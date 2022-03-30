@@ -3,6 +3,13 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import Markdown from './Markdown'
+// import { Editor, Viewer } from '@bytemd/react'
+// import gfm from '@bytemd/plugin-gfm'
+// import highlight from '@bytemd/plugin-highlight'
+// import 'bytemd/dist/index.css'
+import 'highlight.js/styles/vs.css'
+// import zhHans from 'bytemd/lib/locales/zh_Hans.json'
+
 
 interface MainProps {
   posts: ReadonlyArray<string>
@@ -19,7 +26,7 @@ export default function Main(props: MainProps) {
       md={8}
       sx={{
         '& .markdown': {
-          py: 3,
+          py: 3, //这个样式不起作用
         },
       }}
     >
@@ -28,9 +35,7 @@ export default function Main(props: MainProps) {
       </Typography>
       <Divider />
       {posts.map((post) => (
-        <Markdown className='markdown' key={post.substring(0, 40)}>
-          {post}
-        </Markdown>
+        <Markdown value={post} key={post.substring(0, 40)} />
       ))}
     </Grid>
   )
