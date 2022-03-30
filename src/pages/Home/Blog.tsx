@@ -13,20 +13,15 @@ import FeaturedPost from './FeaturedPost'
 import Main from './Main'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
-// import Markdown from './Markdown'
-import Markdown from 'markdown-to-jsx'
-// import post1 from '../../assets/md/blog-post.1.md'
-// import post2 from './blog-post.2.md'
-// import post3 from './blog-post.3.md'
-let post1 = async () => {
-  let post = await fetch('../../assets/md/blog-post.1.md').then((res) =>
-    console.log(res.text()),
-  )
-  // console.log(post)
-  return post
-}
-post1()
-// render(<Markdown>{post1()}</Markdown>, document.body)
+import Markdown from './Markdown'
+// import Markdown from 'markdown-to-jsx'
+import post1 from '../../assets/md/blog-post.1.md'
+import post2 from '../../assets/md/blog-post.2.md'
+import post3 from '../../assets/md/blog-post.3.md'
+
+
+// post1()
+// render(<Markdown>{post}</Markdown>, document.body)
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -68,7 +63,7 @@ const featuredPosts = [
   },
 ]
 
-// const posts = [post1, post2, post3]
+const posts = [post1, post2, post3]
 
 const sidebar = {
   title: 'About',
@@ -110,7 +105,7 @@ export default function Blog() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            {/* <Main title='From the firehose' posts={posts} /> */}
+            <Main title='From the firehose' posts={posts} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
