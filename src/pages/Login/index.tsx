@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
@@ -17,8 +18,6 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { PROPERTY_TYPES } from '@babel/types'
 import avatar from '../../assets/img/avator.jpg'
-
-
 
 function Copyright(props: any) {
   return (
@@ -51,7 +50,7 @@ export default function SignInSide() {
   const [remember, setRemember] = useState(false)
 
   const emailRef = useRef()
-
+  let navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -60,7 +59,8 @@ export default function SignInSide() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2))
-      window.location.href = '/'
+      // window.location.href = '/'
+      navigate(`/`)
     },
   })
   // useEffect(load)

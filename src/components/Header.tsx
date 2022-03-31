@@ -5,10 +5,12 @@ import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link'
-import avatar from '../../assets/img/avator.jpg'
+import avatar from '../assets/img/avator.jpg'
 import Avatar from '@mui/material/Avatar'
+import { maxWidth, textAlign } from '@mui/system'
+import { auto } from '@popperjs/core'
 interface HeaderProps {
-  sections: ReadonlyArray<{
+  sections?: ReadonlyArray<{
     title: string
     url: string
   }>
@@ -21,7 +23,9 @@ export default function Header(props: HeaderProps) {
   return (
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Button size='small'>Subscribe</Button>
+        <Button size='small' href='/'>
+          主页
+        </Button>
         <Typography
           component='h2'
           variant='h5'
@@ -35,20 +39,29 @@ export default function Header(props: HeaderProps) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Link href='/user'>
-          <Avatar
-            sx={{ width: 36, height: 36 }}
-            alt='Remy Sharp'
-            src={avatar}
-          />
-        </Link>
+        {false ? (
+          <Link href='/user'>
+            <Avatar
+              sx={{ width: 36, height: 36 }}
+              alt='Remy Sharp'
+              src={avatar}
+            />
+          </Link>
+        ) : (
+          <Button href='/login'>登录</Button>
+        )}
       </Toolbar>
       <Toolbar
         component='nav'
         variant='dense'
-        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+        sx={{
+          justifyContent: 'space-between',
+          overflowX: 'auto',
+          maxWidth: '1200px',
+          marginX: auto,
+        }}
       >
-        {sections.map((section) => (
+        {sections?.map((section) => (
           <Link
             color='inherit'
             noWrap

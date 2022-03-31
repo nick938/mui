@@ -6,38 +6,38 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import Header from './Header'
-import MainFeaturedPost from './MainFeaturedPost'
-import FeaturedPost from './FeaturedPost'
-import Main from './Main'
-import Sidebar from './Sidebar'
-import Footer from './Footer'
-import Markdown from './Markdown'
+import Header from '../../../components/Header'
+import MainFeaturedPost from '../../../components/MainFeaturedPost'
+import FeaturedPost from '../../../components/FeaturedPost'
+import Main from '../../../components/Main'
+import Sidebar from '../../../components/Sidebar'
+import Footer from '../../../components/Footer'
+import Markdown from '../../../components/Markdown'
 
-import post1 from '../../assets/md/blog-post.1.md'
-import post2 from '../../assets/md/blog-post.2.md'
-import post3 from '../../assets/md/blog-post.3.md'
+import post1 from '../../../assets/md/blog-post.1.md'
+import post2 from '../../../assets/md/blog-post.2.md'
+import post3 from '../../../assets/md/blog-post.3.md'
 
 const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
+  { title: '科技', url: '#' },
+  { title: '设计', url: '#' },
+  { title: '文化', url: '#' },
+  { title: '商业', url: '#' },
+  { title: '政治', url: '#' },
+  { title: '观点', url: '#' },
+  { title: '科学', url: '#' },
+  { title: '健康', url: '#' },
+  { title: '潮流', url: '#' },
+  { title: '旅行', url: '#' },
 ]
 
 const mainFeaturedPost = {
-  title: 'Title of a longer featured blog post',
+  title: '主要文章',
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: 'https://source.unsplash.com/random',
   imageText: 'main image description',
-  linkText: 'Continue reading…',
+  linkText: '详细内容...',
 }
 
 const featuredPosts = [
@@ -89,32 +89,17 @@ const theme = createTheme()
 
 export default function Blog() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Container maxWidth='lg'>
-        <Header title='Blog' sections={sections} />
-        <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
-            ))}
-          </Grid>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title='From the firehose' posts={posts} />
-            <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              archives={sidebar.archives}
-              social={sidebar.social}
-            />
-          </Grid>
-        </main>
-      </Container>
-      <Footer
-        title='Footer'
-        description='Something here to give the footer a purpose!'
-      />
-    </ThemeProvider>
+    <>
+      <MainFeaturedPost post={mainFeaturedPost} />
+      <Grid container spacing={5} sx={{ mt: 3 }}>
+        <Main title='From the firehose' posts={posts} />
+        <Sidebar
+          title={sidebar.title}
+          description={sidebar.description}
+          archives={sidebar.archives}
+          social={sidebar.social}
+        />
+      </Grid>
+    </>
   )
 }
