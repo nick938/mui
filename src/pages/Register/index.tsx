@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Copyright(props: any) {
   return (
@@ -22,25 +24,39 @@ function Copyright(props: any) {
       {...props}
     >
       {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
+      <Link color='inherit' href='https://github.com/nick938'>
+        Liu Yi
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   )
 }
-
+interface Ires {
+  stat: ''
+  data?: ''
+}
 const theme = createTheme()
 
 export default function SignUp() {
+  let navigate = useNavigate()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+    axios
+      .post('http://localhost:3000/api/auth/registry', {
+        account: data.get('email'),
+        pwd: data.get('password'),
+      })
+      .then((res) => {
+        if (res.data.stat === 'ok') {
+          navigate('/')
+        }
+        else{
+          alert('用户已注册！')
+        }
+      })
+      .catch((error) => console.error(error))
   }
 
   return (
@@ -55,20 +71,20 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
-          </Avatar>
+          </Avatar> */}
           <Typography component='h1' variant='h5'>
-            Sign up
+            注册
           </Typography>
           <Box
             component='form'
-            noValidate
+            // noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} >
                 <TextField
                   autoComplete='given-name'
                   name='firstName'
@@ -78,8 +94,8 @@ export default function SignUp() {
                   label='First Name'
                   autoFocus
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Grid> */}
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -88,15 +104,16 @@ export default function SignUp() {
                   name='lastName'
                   autoComplete='family-name'
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id='email'
-                  label='Email Address'
+                  label='邮箱'
                   name='email'
                   autoComplete='email'
+                  type='email'
                 />
               </Grid>
               <Grid item xs={12}>
@@ -104,20 +121,20 @@ export default function SignUp() {
                   required
                   fullWidth
                   name='password'
-                  label='Password'
+                  label='密码'
                   type='password'
                   id='password'
                   autoComplete='new-password'
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value='allowExtraEmails' color='primary' />
                   }
                   label='I want to receive inspiration, marketing promotions and updates via email.'
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type='submit'
@@ -125,12 +142,12 @@ export default function SignUp() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              注册
             </Button>
             <Grid container justifyContent='flex-end'>
               <Grid item>
                 <Link href='/login' variant='body2'>
-                  Already have an account? Sign in
+                  已经有账号？点击此处登录
                 </Link>
               </Grid>
             </Grid>
