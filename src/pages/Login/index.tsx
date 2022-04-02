@@ -18,6 +18,8 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { PROPERTY_TYPES } from '@babel/types'
 import avatar from '../../assets/img/avator.jpg'
+import axios from 'axios'
+import { Alert } from '@mui/material'
 
 function Copyright(props: any) {
   return (
@@ -41,7 +43,7 @@ const theme = createTheme()
 
 const validationSchema = yup.object({
   email: yup.string().email('邮箱格式错误').required('邮箱为空！'),
-  password: yup.string().min(6, '密码最少六位').required('密码为空！'),
+  password: yup.string().required('密码为空！'),
 })
 
 export default function SignInSide() {
@@ -59,12 +61,24 @@ export default function SignInSide() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2))
-      // window.location.href = '/'
-      navigate(`/`)
+      axios
+        .post('http://localhost:3100/api/auth/login', {
+          account: values.email,
+          pwd: values.password,
+          
+        })
+        .then((res) => {
+          // if (res.data.stat === 'ok') {
+          //   navigate(`/`)
+          // } else {
+          //   alert('账号或密码错误')
+          // }
+          console.log(res)
+        })
+        .catch((error) => console.log(error))
     },
   })
   // useEffect(load)
-
   function load() {
     if (Cookies.get('account')) {
       console.log(JSON.parse(Cookies.get('account') || ''))

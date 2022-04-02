@@ -32,10 +32,7 @@ function Copyright(props: any) {
     </Typography>
   )
 }
-interface Ires {
-  stat: ''
-  data?: ''
-}
+
 const theme = createTheme()
 
 export default function SignUp() {
@@ -50,7 +47,7 @@ export default function SignUp() {
       })
       .then((res) => {
         if (res.data.stat === 'ok') {
-          navigate('/')
+          navigate('/login')
         }
         else{
           alert('用户已注册！')

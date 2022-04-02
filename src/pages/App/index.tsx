@@ -9,7 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Science from '../Home/Science'
 import Editor1 from '../Editor'
-
+import axios from 'axios'
+axios.defaults.withCredentials = true
 export default function App() {
   return (
     <Routes>

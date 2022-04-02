@@ -18,8 +18,8 @@ const sections = [
   { title: '政治', url: '/ploitics' },
   { title: '观点', url: '/opinion' },
   { title: '健康', url: '/health' },
-  { title: '潮流', url: 'style' },
-  { title: '旅行', url: 'travel' },
+  { title: '潮流', url: '/style' },
+  { title: '旅行', url: '/travel' },
 ]
 
 const theme = createTheme({})
